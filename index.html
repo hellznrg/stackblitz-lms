@@ -22,7 +22,7 @@
           <table>
             <tr ng-repeat="(key, value) in entities">
               <td>
-                <button ng-click="shared.selectedEntity=key">
+                <button ng-click="shared.selectedEntity=key" style="width:100%">
                   {{ value.name }}
                 </button>
               </td>
@@ -33,10 +33,6 @@
         <entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
       </div>
     </div>
-    <lms-dialog show="dialog" title="Hello world">
-      <entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
-    </lms-dialog>
-    <button ng-click="dialog=!dialog">Show dialog</button>
     <style>
       .layout1 {
         display: flex;

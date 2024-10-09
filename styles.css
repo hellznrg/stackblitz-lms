@@ -1,12 +1,10 @@
-* {
+:root {
+  color-scheme: light dark;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   font-family: system-ui, sans-serif;
-  color: black;
-  background-color: white;
 }
 
 nav {
@@ -16,8 +14,6 @@ nav {
   justify-content: center;
   padding: 0.5rem;
   gap: 0.5rem;
-  border-bottom: solid 1px #aaa;
-  background-color: #eee;
 }
 
 nav a {
@@ -53,20 +49,13 @@ nav.entities {
   justify-content: center;
   padding: 0.5rem;
   gap: 0.5rem;
-  border-bottom: solid 1px #aaa;
-  background-color: #eee;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
 }
 
 table,
 tr,
 th,
 td {
-  border: 1px solid gray;
+  border: 1px solid;
   border-collapse: collapse;
 }
 

@@ -4,46 +4,46 @@
       <h2>{{ title }}</h2>
       <button ng-click="show=false">&times;</button>
     </div>
-    <div ng-transclude class="body"></div>
+    <div class="body">
+      <p>{{ message }}</p>
+      <div class="buttons">
+        <button ng-repeat="button in buttons" ng-click="button.action()">{{ button.text }}</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
-  /* Hidden dialog initially */
   .dialog .content {
     display: block;
     position: fixed;
     top: 50%;
     left: 50%;
+    border: 1px solid white;
     transform: translate(-50%, -50%);
     max-width: calc(100vw - 2em);
     max-height: calc(100vh - 2em);
-    background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     z-index: 1000;
     overflow: hidden;
   }
 
-  /* Dialog header */
   .dialog .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 20px ; 
+    padding: 0px 20px;
     background-color: #4caf50;
-    color: white;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
 
-  /* Dialog body */
   .dialog .body {
     padding: 20px;
-    overflow: scroll;
+    overflow: auto;
   }
 
-  /* Background overlay */
   .dialog.backdrop {
     position: fixed;
     top: 0;
@@ -53,5 +53,12 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: block;
+  }
+
+  .dialog .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    gap: 1em;
   }
 </style>

@@ -9,7 +9,6 @@ m.directive('entityListView', function () {
       '$scope',
       'db',
       function ($scope, db) {
-        console.log("lms");
         $scope.name = 'Library Management System';
 
         $scope.$watch('entity', (newValue) => {
@@ -19,8 +18,31 @@ m.directive('entityListView', function () {
 
           db.getStructure((structure) => {
             $scope.structure = structure[newValue];
+            $scope.keyField = Object.values($scope.structure.fields).find(x => x.key).name;
           });
         });
+
+        $scope.showEditDialog = false;
+        $scope.showDeleteDialog = false;
+
+        $scope.delete = (keyValue) => {
+          console.log(keyValue);
+          $scope.showDeleteDialog = true;
+          $scope.selectedKey = keyValue;
+        }
+
+        $scope.deleteConfirmButtons = [
+          {
+            text: "Yes", action: () => {
+              console.log("Deleting " + $scope.selectedKey);
+            }
+          },
+          {
+            text: "No", action: () => {
+              $scope.showDeleteDialog = false;
+            }
+          }
+        ]
       },
     ],
   };

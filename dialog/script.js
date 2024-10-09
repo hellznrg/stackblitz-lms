@@ -6,10 +6,11 @@ m.directive('lmsDialog', function () {
     scope: {
       show: "=",
       title: "@",
+      message: "@",
+      buttons: "=",
     },
     controller: ["$scope", function($scope) {
       $scope.show = false;
-      $scope.title = "(dialog title goes here)";
     }]
   };
 });
