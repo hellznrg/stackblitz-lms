@@ -8,6 +8,7 @@ m.directive("lmsDialog", function () {
 			title: "@",
 			message: "@",
 			buttons: "=",
+			transclude: "@",
 		},
 		controller: [
 			"$scope",
@@ -16,6 +17,12 @@ m.directive("lmsDialog", function () {
 				$scope.choose = (action) => {
 					if (action) action();
 					$scope.show = false;
+				};
+
+				$scope.parseTransclude = () => {
+					if ($scope.transclude === undefined || $scope.transclude.toLowerCase() === "false") return false;
+					if ($scope.transclude === "" || $scope.transclude.toLowerCase() === "true") return true;
+					throw "Invalid 'transclude' value";
 				};
 			},
 		],
