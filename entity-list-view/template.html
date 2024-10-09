@@ -1,42 +1,44 @@
 <table class="entity-list-view">
-  <tr>
-    <th ng-repeat="field in structure.fields">{{ field.description }}</th>
-    <th>Actions</th>
-  </tr>
-  <tr ng-repeat="record in data">
-    <td ng-repeat="field in structure.fields">{{ record[field.name] }}</td>
-    <td>
-      <div class="actions">
-        <button>
-          <img src="/assets/images/table-edit.svg" class="edit" />
-        </button>
-        <button ng-click="delete(record[keyField])">
-          <img src="/assets/images/trash-can-outline.svg" class="delete" />
-        </button>
-      </div>
-    </td>
-  </tr>
+	<tr>
+		<th ng-repeat="field in structure.fields">{{ field.description }}</th>
+		<th>Actions</th>
+	</tr>
+	<tr ng-repeat="record in data">
+		<td ng-repeat="field in structure.fields">{{ record[field.name] }}</td>
+		<td>
+			<div class="actions">
+				<button>
+					<img src="/assets/images/table-edit.svg" class="edit" />
+				</button>
+				<button ng-click="delete(record[keyField])">
+					<img src="/assets/images/trash-can-outline.svg" class="delete" />
+				</button>
+			</div>
+		</td>
+	</tr>
 </table>
 
-<lms-dialog show="showEditDialog" title="Hello world">
-</lms-dialog>
+<lms-dialog show="showEditDialog" title="Hello world"> </lms-dialog>
 
-<lms-dialog show="showDeleteDialog" title="Delete record"
-  message="Are you sure you want to delete {{ structure.name }} &quot;{{ selectedKey }}&quot;?"
-  buttons="deleteConfirmButtons">
+<lms-dialog
+	show="showDeleteDialog"
+	title="Delete record"
+	message='Are you sure you want to delete {{ structure.name }} "{{ selectedKey }}"?'
+	buttons="deleteConfirmButtons"
+>
 </lms-dialog>
 
 <style>
-  .entity-list-view .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    justify-content: space-between;
-    align-items: center;
-  }
+	.entity-list-view .actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		justify-content: space-between;
+		align-items: center;
+	}
 
-  img.edit,
-  img.delete {
-    width: 2rem;
-  }
+	img.edit,
+	img.delete {
+		width: 2rem;
+	}
 </style>
