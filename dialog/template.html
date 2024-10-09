@@ -6,9 +6,10 @@
 			<h2>{{ title }}</h2>
 			<button ng-click="show=false">&times;</button>
 		</div>
+
 		<div class="body">
 			<div ng-show="parseTransclude()" ng-transclude></div>
-			<p ng-hide="parseTransclude()">{{ message }}</p>
+			<div ng-hide="parseTransclude()">{{ message }}</div>
 			<div class="buttons">
 				<button ng-repeat="button in buttons" ng-click="choose(button.action)">{{ button.text }}</button>
 			</div>

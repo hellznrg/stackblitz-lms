@@ -17,15 +17,18 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0px 20px;
+	padding: 0px 1em;
 	background-color: #4caf50;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 }
 
 .dialog .body {
-	padding: 20px;
 	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	padding: 1em;
 }
 
 .dialog.backdrop {
