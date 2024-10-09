@@ -9,6 +9,7 @@ m.directive('entityListView', function () {
       '$scope',
       'db',
       function ($scope, db) {
+        console.log("lms");
         $scope.name = 'Library Management System';
 
         $scope.$watch('entity', (newValue) => {

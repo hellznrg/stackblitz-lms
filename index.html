@@ -7,6 +7,7 @@
     <script src="https://code.angularjs.org/1.0.8/angular.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="/script.js"></script>
+    <script src="dialog/script.js"></script>
     <script src="entity-list-view/script.js"></script>
     <script src="entity-edit/script.js"></script>
   </head>
@@ -32,10 +33,9 @@
         <entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
       </div>
     </div>
-    <dialog ng-if="dialog==true">
-      <div>hello world</div>
-    </dialog>
-    {{ dialog }}
+    <lms-dialog show="dialog" title="Hello world">
+      <entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
+    </lms-dialog>
     <button ng-click="dialog=!dialog">Show dialog</button>
     <style>
       .layout1 {
