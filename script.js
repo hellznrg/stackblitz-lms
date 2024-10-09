@@ -44,6 +44,18 @@ m.service("db", function ($http) {
 			});
 		};
 
+		this.saveRecord = (entity, entityId, data, successFn) => {
+			this.getKeyFieldName(entity, (keyFieldName) => {
+				let [result, cached] = isJson(localStorage.getItem("data"));
+				if (result) {
+					cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+					cached[entity].push(data);
+					localStorage.setItem("data", JSON.stringify(cached));
+					successFn();
+				}
+			});
+		};
+
 		this.deleteRecord = (entity, entityId, successFn) => {
 			this.getKeyFieldName(entity, (keyFieldName) => {
 				let [result, cached] = isJson(localStorage.getItem("data"));

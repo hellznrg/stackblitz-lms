@@ -9,7 +9,7 @@
 		<td ng-repeat="field in structure.fields">{{ record[field.name] }}</td>
 		<td>
 			<div class="actions">
-				<button>
+				<button ng-click="edit(record[keyField])">
 					<img src="/assets/images/table-edit.svg" class="edit" />
 				</button>
 				<button ng-click="delete(record[keyField])">
@@ -20,7 +20,7 @@
 	</tr>
 </table>
 
-<lms-dialog show="showEditDialog" title="Hello world"> </lms-dialog>
+<entity-edit show="showEditDialog" entity="{{ entity }}" key="{{ selectedKey }}" save-action="saveAction"></entity-edit>
 
 <lms-dialog
 	show="showDeleteDialog"

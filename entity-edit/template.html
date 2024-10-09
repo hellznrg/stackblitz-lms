@@ -1,3 +1,17 @@
-<div class="dialog">
-	<p>this is a dialog box</p>
-</div>
+<link rel="stylesheet" href="entity-edit/styles.css" />
+
+<lms-dialog show="show" title="Edit record" transclude buttons="actionButtons" class="edit-entity">
+	<table>
+		<tr ng-repeat="field in structure.fields">
+			<td>{{ field.description }}</td>
+			<td>
+				<input
+					ng-show="field.type=='string'"
+					type="text"
+					ng-model="data[field.name]"
+					ng-class="{'first-field': $first}"
+				/>
+			</td>
+		</tr>
+	</table>
+</lms-dialog>

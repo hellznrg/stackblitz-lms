@@ -12,7 +12,9 @@ m.directive("entityListView", function () {
 				const refreshStructure = (entity) => {
 					db.getStructure((structure) => {
 						$scope.structure = structure[entity];
-						$scope.keyField = Object.values($scope.structure.fields).find((x) => x.key).name;
+						db.getKeyFieldName($scope.entity, (keyFieldName) => {
+							$scope.keyField = keyFieldName;
+						});
 					});
 				};
 
@@ -37,11 +39,15 @@ m.directive("entityListView", function () {
 					$scope.showDeleteDialog = true;
 				};
 
+				$scope.edit = (keyValue) => {
+					$scope.selectedKey = keyValue;
+					$scope.showEditDialog = true;
+				};
+
 				$scope.deleteConfirmButtons = [
 					{
 						text: "Yes",
 						action: () => {
-							console.log("Deleting " + $scope.selectedKey);
 							db.deleteRecord($scope.entity, $scope.selectedKey, () => {
 								refreshData($scope.entity);
 							});
@@ -51,6 +57,10 @@ m.directive("entityListView", function () {
 						text: "No",
 					},
 				];
+
+				$scope.saveAction = () => {
+					refreshData($scope.entity);
+				};
 			},
 		],
 	};
