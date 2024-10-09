@@ -1,0 +1,19 @@
+m.directive('virtual', function () {
+  return {
+    restrict: 'E',
+    template: "<div ng-transclude></div>",
+    transclude: true,
+    replace: true,
+    link: function (scope, element, attrs) {
+      let content = element.contents(); // Get the contents inside the <template> tag
+      element.after(content); // Replace the <template> with its contents
+      element.css("display", "none")
+    },
+  };
+});
+
+    <div class="grid-container">
+      <virtual ng-repeat="i in [1,2,3,4,5]">
+        <p>transcluded</p>
+      </virtual>
+    </div>

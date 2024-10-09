@@ -1,0 +1,8 @@
+<table>
+  <tr>
+    <th ng-repeat="field in structure.fields">{{ field.description }}</th>
+  </tr>
+  <tr ng-repeat="record in data">
+    <td ng-repeat="field in structure.fields">{{ record[field.name] }}</td>
+  </tr>
+</table>

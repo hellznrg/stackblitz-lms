@@ -1,0 +1,43 @@
+{
+  "book": {
+    "name": "Book",
+    "fields": [
+      {
+        "name": "id",
+        "description": "Book ID",
+        "type": "string",
+        "editable": true,
+        "key": true,
+        "order": 1
+      },
+      {
+        "name": "name",
+        "description": "Book name",
+        "type": "string",
+        "editable": true,
+        "order": 2
+      }
+    ]
+  },
+
+  "author": {
+    "name": "Author",
+    "fields": [
+      {
+        "name": "id",
+        "description": "Author ID",
+        "type": "string",
+        "editable": true,
+        "key": true,
+        "order": 1
+      },
+      {
+        "name": "name",
+        "description": "Author name",
+        "type": "string",
+        "editable": true,
+        "order": 2
+      }
+    ]
+  }
+}
