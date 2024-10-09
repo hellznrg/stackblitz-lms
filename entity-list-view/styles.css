@@ -1,0 +1,12 @@
+.entity-list-view .actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	justify-content: space-between;
+	align-items: center;
+}
+
+img.edit,
+img.delete {
+	width: 2rem;
+}

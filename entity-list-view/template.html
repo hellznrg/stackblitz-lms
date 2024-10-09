@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="entity-list-view/styles.css" />
+
 <table class="entity-list-view">
 	<tr>
 		<th ng-repeat="field in structure.fields">{{ field.description }}</th>
@@ -27,18 +29,3 @@
 	buttons="deleteConfirmButtons"
 >
 </lms-dialog>
-
-<style>
-	.entity-list-view .actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	img.edit,
-	img.delete {
-		width: 2rem;
-	}
-</style>
