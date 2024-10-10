@@ -16,9 +16,8 @@ m.directive("entityEdit", function () {
 					if (!newValue) return;
 					db.getStructure((structure) => {
 						$scope.structure = structure[newValue];
-						db.getKeyFieldName(newValue, (keyFieldName) => {
-							$scope.keyField = keyFieldName;
-						});
+						const keyFieldName = db.getKeyFieldName(newValue);
+						$scope.keyField = keyFieldName;
 					});
 				});
 

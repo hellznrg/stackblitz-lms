@@ -42,5 +42,19 @@
 			"address": "304 George Street\nQueanbeyan\nNSW 5643",
 			"comments": "His kids sometimes damage the books. Give him the books which are already damaged."
 		}
+	],
+	"location": [
+		{
+			"id": "L01",
+			"name": "Gungahlin library",
+			"address": "Gungahlin Place, ACT 2619",
+			"booksAtLocation": ["B03", "B02"]
+		},
+		{
+			"id": "L02",
+			"name": "Wagga Wagga Library",
+			"address": "Wagga Wagga Waterfalls Drive, 145 Somestreet, Somesuburb, Wagga Wagga, NSW 4455",
+			"booksAtLocation": ["B01", "B02"]
+		}
 	]
 }

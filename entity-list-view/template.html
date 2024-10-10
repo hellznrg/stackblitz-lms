@@ -19,6 +19,12 @@
 					<div ng-show="field.type=='date'" class="nowrap">{{ record[field.name] | format:'localeDate' }}</div>
 					<div ng-show="field.type=='string'">{{ record[field.name] }}</div>
 					<div ng-show="field.type=='longText'">{{ record[field.name] }}</div>
+					<div ng-show="field.type=='link' && field.multiplicity=='many'">
+						<span ng-repeat="link in record[field.name]">
+							<a href="#">{{ macroTransform(field.link, link, field.listDisplay) }}</a>
+							<span ng-hide="$last">, </span>
+						</span>
+					</div>
 				</td>
 				<td>
 					<div class="actions">

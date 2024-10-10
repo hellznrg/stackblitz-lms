@@ -6,7 +6,6 @@ m.service("error", function () {
 	this.errors = [];
 	this.throw = (message, error) => {
 		this.errors.push(`${message}${error ? "\n" + JSON.stringify(error, null, 1) : ""}`);
-		console.log(this.errors);
 		throw error;
 	};
 
@@ -51,39 +50,42 @@ m.service("db", function ($http, error) {
 			}
 		};
 
-		this.getKeyFieldName = (entity, successFn) => {
-			this.getStructure((structure) => {
-				const keyFieldName = Object.values(structure[entity].fields).find((x) => x.key).name;
-				successFn(keyFieldName);
-			});
+		let entityKeys;
+		this.getStructure((structure) => {
+			entityKeys = {};
+			for (let e of Object.keys(structure)) {
+				entityKeys[e] = structure[e].fields.find((x) => x.key).name;
+			}
+		});
+
+		this.getKeyFieldName = (entity) => {
+			return entityKeys[entity];
 		};
 
 		this.saveRecord = (entity, entityId, data, successFn) => {
-			this.getKeyFieldName(entity, (keyFieldName) => {
-				let [result, cached] = isJson(localStorage.getItem("data"));
-				if (result) {
-					if (entityId == "") {
-						if (cached[entity].some((x) => x[keyFieldName] == data[keyFieldName]))
-							error.throw(`A record with ID=${data[keyFieldName]} already exists.`);
-					} else {
-						cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
-					}
-					cached[entity].push(data);
-					localStorage.setItem("data", JSON.stringify(cached));
-					successFn();
+			const keyFieldName = this.getKeyFieldName(entity);
+			let [result, cached] = isJson(localStorage.getItem("data"));
+			if (result) {
+				if (entityId == "") {
+					if (cached[entity].some((x) => x[keyFieldName] == data[keyFieldName]))
+						error.throw(`A record with ID=${data[keyFieldName]} already exists.`);
+				} else {
+					cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
 				}
-			});
+				cached[entity].push(data);
+				localStorage.setItem("data", JSON.stringify(cached));
+				successFn();
+			}
 		};
 
 		this.deleteRecord = (entity, entityId, successFn) => {
-			this.getKeyFieldName(entity, (keyFieldName) => {
-				let [result, cached] = isJson(localStorage.getItem("data"));
-				if (result) {
-					cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
-					localStorage.setItem("data", JSON.stringify(cached));
-					successFn();
-				}
-			});
+			const keyFieldName = this.getKeyFieldName(entity);
+			let [result, cached] = isJson(localStorage.getItem("data"));
+			if (result) {
+				cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+				localStorage.setItem("data", JSON.stringify(cached));
+				successFn();
+			}
 		};
 	}
 });

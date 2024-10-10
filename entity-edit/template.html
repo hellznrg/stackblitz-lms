@@ -23,6 +23,8 @@
 					ng-class="{'first-field': $first}"
 					rows="{{ field.rows }}"
 				></textarea>
+
+				<link-edit ng-show="field.type=='link'" link-from-field="field" value="data[field.name]"></link-edit>
 			</td>
 		</tr>
 	</table>

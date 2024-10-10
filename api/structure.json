@@ -83,5 +83,45 @@
 				"order": 999
 			}
 		]
+	},
+
+	"location": {
+		"name": "Location",
+		"fields": [
+			{
+				"name": "id",
+				"description": "Library ID",
+				"type": "string",
+				"editable": true,
+				"key": true,
+				"order": 1
+			},
+			{
+				"name": "name",
+				"description": "Library Name",
+				"type": "string",
+				"editable": true,
+				"order": 1
+			},
+			{
+				"name": "address",
+				"description": "Address",
+				"type": "longText",
+				"editable": true,
+				"order": 2
+			},
+			{
+				"name": "booksAtLocation",
+				"description": "Books owned",
+				"type": "link",
+				"link": "book",
+				"editable": true,
+				"multiplicity": "many",
+				"listDisplay": "~name~ (~id~)",
+				"editControl": "checkbox",
+				"editDisplay": ["name"],
+				"order": 3
+			}
+		]
 	}
 }

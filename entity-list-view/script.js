@@ -12,14 +12,14 @@ m.directive("entityListView", function () {
 				const refreshStructure = (entity) => {
 					db.getStructure((structure) => {
 						$scope.structure = structure[entity];
-						db.getKeyFieldName($scope.entity, (keyFieldName) => {
-							$scope.keyField = keyFieldName;
-						});
+						const keyFieldName = db.getKeyFieldName($scope.entity);
+						$scope.keyField = keyFieldName;
 					});
 				};
 
 				const refreshData = (entity) => {
 					db.getData((data) => {
+						$scope.allData = data;
 						$scope.data = data[entity];
 					});
 				};
@@ -65,6 +65,23 @@ m.directive("entityListView", function () {
 
 				$scope.saveAction = () => {
 					refreshData($scope.entity);
+				};
+
+				$scope.getLinkedEntity = (entityType, entityId) => {
+					const keyField = db.getKeyFieldName(entityType);
+					return $scope.allData[entityType].find((x) => x[keyField] == entityId);
+				};
+
+				const pattern = /(?<=~)\w*(?=~)/g;
+				$scope.macroTransform = (entityType, entityId, macro) => {
+					if (!macro) return;
+					if (!entityType) return;
+					const linked = $scope.getLinkedEntity(entityType, entityId);
+					const matches = macro.match(pattern);
+					for (let match of matches) {
+						macro = macro.replaceAll(`~${match}~`, linked[match]);
+					}
+					return macro;
 				};
 			},
 		],
