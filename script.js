@@ -2,10 +2,24 @@ const MOCK = true;
 
 const m = angular.module("lms", []);
 
-m.service("db", function ($http) {
-	const errorHandler = (error) => {
-		console.error("Error fetching structure data:", error);
+m.service("error", function () {
+	this.errors = [];
+	this.throw = (message, error) => {
+		this.errors.push(`${message}${error ? "\n" + JSON.stringify(error, null, 1) : ""}`);
+		console.log(this.errors);
 		throw error;
+	};
+
+	this.nextError = () => this.errors[0];
+
+	this.acknowledgeError = () => this.errors.shift();
+
+	this.numErrors = () => this.errors.length;
+});
+
+m.service("db", function ($http, error) {
+	const errorHandler = (error) => {
+		error.throw("Error communicating with server", error);
 	};
 
 	if (MOCK) {
@@ -69,7 +83,7 @@ m.service("db", function ($http) {
 	}
 });
 
-m.controller("mainCtrl", function ($scope, db) {
+m.controller("mainCtrl", function ($scope, db, error) {
 	db.getStructure((structure) => {
 		$scope.entities = structure;
 	});
@@ -85,20 +99,16 @@ m.controller("mainCtrl", function ($scope, db) {
 		localStorage.removeItem("structure");
 		location.reload();
 	};
-});
 
-m.directive("virtual", function () {
-	return {
-		restrict: "E",
-		template: "<div ng-transclude></div>",
-		transclude: true,
-		replace: true,
-		scope: {},
-		controller: function ($scope, $element, $transclude) {
-			$transclude(function (clone) {
-				$element.after(clone);
-				$element.css("display", "none");
-			});
+	$scope.numErrors = () => error.numErrors();
+	$scope.nextError = () => error.nextError();
+	$scope.acknowledgeError = () => error.acknowledgeError();
+	$scope.errorButtons = [
+		{
+			text: "Acknowledge",
+			action: () => {
+				$scope.acknowledgeError();
+			},
 		},
-	};
+	];
 });

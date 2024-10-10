@@ -32,6 +32,17 @@
 				<entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
 			</div>
 
+			<lms-dialog
+				show="dummy"
+				show-attr="{{ numErrors()>0 }}"
+				title="Error!"
+				message="{{ nextError() }}"
+				transclude
+				buttons="errorButtons"
+			>
+				<pre>{{ nextError() }}</pre>
+			</lms-dialog>
+
 			<div>
 				<h3>Developer tools</h3>
 				<button ng-click="resetStructure()">Reset database structure</button>

@@ -5,6 +5,7 @@ m.directive("lmsDialog", function () {
 		transclude: true,
 		scope: {
 			show: "=",
+			showAttr: "@",
 			title: "@",
 			message: "@",
 			buttons: "=",
@@ -14,9 +15,14 @@ m.directive("lmsDialog", function () {
 			"$scope",
 			function ($scope) {
 				$scope.show = false;
+				$scope.showAttr = "false";
+
+				$scope.showResult = () => $scope.show === true || ($scope.showAttr?.toLowerCase() || "") === "true";
+
 				$scope.choose = (action) => {
 					if (action) action();
 					$scope.show = false;
+					$scope.showAttr = "false";
 				};
 
 				$scope.parseTransclude = () => {
