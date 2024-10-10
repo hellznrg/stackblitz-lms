@@ -6,7 +6,8 @@
 	align-items: center;
 }
 
-img.edit,
-img.delete {
+.entity-list-view img.edit,
+.entity-list-view img.delete,
+.entity-list-view img.add {
 	width: 2rem;
 }

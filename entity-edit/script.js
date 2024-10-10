@@ -22,14 +22,24 @@ m.directive("entityEdit", function () {
 					});
 				});
 
-				$scope.$watch("key", (newValue) => {
-					db.getData((data) => {
-						$scope.data = data[$scope.entity].find((x) => x[$scope.keyField] == newValue);
-					});
+				$scope.$watch("show", (newValue) => {
+					if (newValue) {
+						if ($scope.key == "") {
+							$scope.data = {};
+							for (const s of $scope.structure.fields) {
+								$scope.data[s.name] = null;
+							}
+						} else {
+							db.getData((data) => {
+								$scope.data = data[$scope.entity].find((x) => x[$scope.keyField] == $scope.key);
+							});
+						}
 
-					setTimeout(() => {
-						document.getElementsByClassName("first-field")[0].select();
-					}, 0);
+						setTimeout(() => {
+							const e = document.getElementsByClassName("first-field")[0];
+							e.select();
+						}, 0);
+					}
 				});
 
 				$scope.actionButtons = [

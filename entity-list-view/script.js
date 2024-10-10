@@ -44,6 +44,11 @@ m.directive("entityListView", function () {
 					$scope.showEditDialog = true;
 				};
 
+				$scope.add = () => {
+					$scope.selectedKey = "";
+					$scope.showEditDialog = true;
+				};
+
 				$scope.deleteConfirmButtons = [
 					{
 						text: "Yes",

@@ -62,7 +62,12 @@ m.service("db", function ($http, error) {
 			this.getKeyFieldName(entity, (keyFieldName) => {
 				let [result, cached] = isJson(localStorage.getItem("data"));
 				if (result) {
-					cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+					if (entityId == "") {
+						if (cached[entity].some((x) => x[keyFieldName] == data[keyFieldName]))
+							error.throw(`A record with ID=${data[keyFieldName]} already exists.`);
+					} else {
+						cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+					}
 					cached[entity].push(data);
 					localStorage.setItem("data", JSON.stringify(cached));
 					successFn();
