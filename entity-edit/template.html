@@ -11,6 +11,17 @@
 					ng-model="data[field.name]"
 					ng-class="{'first-field': $first}"
 				/>
+				<input
+					ng-show="field.type=='date'"
+					type="date"
+					ng-model="data[field.name]"
+					ng-class="{'first-field': $first}"
+				/>
+				<textarea
+					ng-show="field.type=='longText'"
+					ng-model="data[field.name]"
+					ng-class="{'first-field': $first}"
+				></textarea>
 			</td>
 		</tr>
 	</table>

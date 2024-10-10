@@ -4,3 +4,8 @@
 .edit-entity td {
 	border: 0px;
 }
+
+.edit-entity input,
+.edit-entity textarea {
+	width: 100%;
+}

@@ -11,3 +11,7 @@
 .entity-list-view img.add {
 	width: 2rem;
 }
+
+.entity-list-view .nowrap {
+	text-wrap: nowrap;
+}

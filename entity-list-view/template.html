@@ -15,7 +15,11 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="record in data">
-				<td ng-repeat="field in structure.fields">{{ record[field.name] }}</td>
+				<td ng-repeat="field in structure.fields">
+					<div ng-show="field.type=='date'" class="nowrap">{{ record[field.name] | format:'localeDate' }}</div>
+					<div ng-show="field.type=='string'">{{ record[field.name] }}</div>
+					<div ng-show="field.type=='longText'">{{ record[field.name] }}</div>
+				</td>
 				<td>
 					<div class="actions">
 						<button ng-click="edit(record[keyField])">
