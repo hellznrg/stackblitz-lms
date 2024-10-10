@@ -12,6 +12,8 @@ m.directive("entityEdit", function () {
 			"$scope",
 			"db",
 			function ($scope, db) {
+				$scope.data = {};
+
 				$scope.$watch("entity", (newValue) => {
 					if (!newValue) return;
 					db.getStructure((structure) => {
@@ -26,7 +28,8 @@ m.directive("entityEdit", function () {
 						if ($scope.key == "") {
 							$scope.data = {};
 							for (const s of $scope.structure.fields) {
-								$scope.data[s.name] = null;
+								if (s.type == "link" && s.multiplicity == "many") $scope.data[s.name] = [];
+								else $scope.data[s.name] = null;
 							}
 						} else {
 							db.getData((data) => {

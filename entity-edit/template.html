@@ -24,7 +24,7 @@
 					rows="{{ field.rows }}"
 				></textarea>
 
-				<link-edit ng-show="field.type=='link'" link-from-field="field" value="data[field.name]"></link-edit>
+				<link-edit ng-hide="field.type == 'link'" link-from-field="field" value="data"></link-edit>
 			</td>
 		</tr>
 	</table>

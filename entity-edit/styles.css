@@ -5,7 +5,8 @@
 	border: 0px;
 }
 
-.edit-entity input,
+.edit-entity input[type="text"],
+.edit-entity input[type="date"],
 .edit-entity textarea {
 	width: 100%;
 }
