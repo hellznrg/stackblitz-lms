@@ -8,10 +8,12 @@
 		</div>
 
 		<div class="body">
+			<div>
 			<div ng-show="parseTransclude()" ng-transclude></div>
 			<div ng-hide="parseTransclude()">{{ message }}</div>
 			<div class="buttons">
 				<button ng-repeat="button in buttons" ng-click="choose(button.action)">{{ button.text }}</button>
+				</div>
 			</div>
 		</div>
 	</div>
