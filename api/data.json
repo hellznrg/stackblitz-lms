@@ -32,13 +32,15 @@
 			"id": "P01",
 			"name": "Alice Jones",
 			"dateOfBirth": "1999-05-04",
-			"address": "101 Over the rainbow\nQLD 8013\nAustralia"
+			"address": "101 Over the rainbow\nQLD 8013\nAustralia",
+			"comments": "Borrows way too many books. A real bookworm."
 		},
 		{
 			"id": "P02",
 			"name": "John Wick",
 			"dateOfBirth": "1989-11-13",
-			"address": "304 George Street\nQueanbeyan\nNSW 5643"
+			"address": "304 George Street\nQueanbeyan\nNSW 5643",
+			"comments": "His kids sometimes damage the books. Give him the books which are already damaged."
 		}
 	]
 }

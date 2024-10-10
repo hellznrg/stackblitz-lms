@@ -70,8 +70,17 @@
 				"name": "address",
 				"description": "Address",
 				"type": "longText",
+				"rows": "5",
 				"editable": true,
 				"order": 2.5
+			},
+			{
+				"name": "comments",
+				"description": "Comments",
+				"type": "longText",
+				"rows": "8",
+				"editable": true,
+				"order": 999
 			}
 		]
 	}
