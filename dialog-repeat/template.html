@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="dialog/styles.css" />
+<div ng-repeat="time in showTimes()" class="dialog backdrop">
+	<div class="content">
+		<div class="header">
+			<h2>{{ title }}</h2>
+			<button ng-click="hide()">&times;</button>
+		</div>
+
+		<div class="body">
+			<div>
+				<div ng-show="parseTransclude()" ng-transclude></div>
+				<div ng-hide="parseTransclude()">{{ message }}</div>
+				<div class="buttons">
+					<button ng-repeat="button in buttons" ng-click="choose(button.action)">{{ button.text }}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

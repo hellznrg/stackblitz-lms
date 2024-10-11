@@ -13,7 +13,7 @@ m.directive("linkEdit", function () {
 				$scope.selections = {};
 
 				if ($scope.linkFromField.type == "link") {
-					db.getData((data) => {
+					db.getData().then((data) => {
 						const keyFieldName = db.getKeyFieldName($scope.linkFromField.link);
 						$scope.data = data[$scope.linkFromField.link];
 						$scope.keys = $scope.data.map((x) => x[keyFieldName]);
