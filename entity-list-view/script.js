@@ -11,7 +11,7 @@ m.directive("entityListView", function () {
 			"db",
 			function ($scope, $timeout, db) {
 				const refreshStructure = async (entity) => {
-					const structure = await db.getStructure()
+					const structure = await db.getStructure();
 					$scope.structure = structure[entity];
 					const keyFieldName = db.getKeyFieldName($scope.entity);
 					$scope.keyField = keyFieldName;

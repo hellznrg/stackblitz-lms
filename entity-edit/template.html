@@ -1,5 +1,15 @@
 <link rel="stylesheet" href="entity-edit/styles.css" />
-<lms-dialog-repeat show="show" title="Edit record" transclude buttons="actionButtons" transcluded-scope-0="structure" transcluded-scope-1="entity" transcluded-scope-2="key" transcluded-scope-3="data" class="edit-entity">
+<lms-dialog-repeat
+	show="show"
+	title="Edit record"
+	transclude
+	buttons="actionButtons"
+	transcluded-scope-0="structure"
+	transcluded-scope-1="entity"
+	transcluded-scope-2="key"
+	transcluded-scope-3="data"
+	class="edit-entity"
+>
 	<table>
 		<tr ng-repeat="field in transcludedScope0.fields">
 			<td>{{ field.description }}</td>
@@ -27,4 +37,4 @@
 			</td>
 		</tr>
 	</table>
-</lms-dialog>
+</lms-dialog-repeat>

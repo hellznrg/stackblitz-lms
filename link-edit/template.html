@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="link-edit/styles.css" />
 
 <div class="link-edit">
-  <div ng-show="linkFromField.editControl=='checkbox'" class="checkboxes">
-    <label ng-repeat="key in keys"><input type="checkbox" value="{{key}}" ng-model="selections[key]"></input> {{key}}</label>
-    {{ selections }}
-  </div>
+	<div ng-show="linkFromField.editControl=='checkbox'" class="checkboxes">
+		<label ng-repeat="key in keys"><input type="checkbox" value="{{key}}" ng-model="selections[key]" /> {{key}}</label>
+		{{ selections }}
+	</div>
 </div>

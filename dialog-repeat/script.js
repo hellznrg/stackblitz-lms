@@ -25,7 +25,7 @@ m.directive("lmsDialogRepeat", function () {
 			function ($scope) {
 				$scope.hide = () => {
 					$scope.show = 0;
-				}
+				};
 				$scope.show = 0;
 
 				$scope.showTimes = () => [...Array($scope.show)];
