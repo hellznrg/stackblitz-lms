@@ -7,8 +7,9 @@ m.directive("entityListView", function () {
 		},
 		controller: [
 			"$scope",
+			"$timeout",
 			"db",
-			function ($scope, db) {
+			function ($scope, $timeout, db) {
 				const refreshStructure = async (entity) => {
 					const structure = await db.getStructure()
 					$scope.structure = structure[entity];
@@ -28,6 +29,9 @@ m.directive("entityListView", function () {
 				$scope.$watch("entity", (newValue) => {
 					refreshData(newValue);
 					refreshStructure(newValue);
+					$timeout(() => {
+						$scope.$digest();
+					});
 				});
 
 				$scope.showEditDialog = 0;
