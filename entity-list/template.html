@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="entity-list-view/styles.css" />
+<link rel="stylesheet" href="entity-list/styles.css" />
 
-<div class="entity-list-view">
+<div class="entity-list">
 	<table>
 		<thead>
 			<tr>
@@ -57,11 +57,11 @@
 		structure="structure"
 	></entity-edit>
 
-	<lms-dialog
+	<lms-dialog-repeat
 		show="showDeleteDialog"
 		title="Delete record"
 		message='Are you sure you want to delete {{ structure.name }} "{{ selectedKey }}"?'
 		buttons="deleteConfirmButtons"
 	>
-	</lms-dialog>
+	</lms-dialog-repeat>
 </div>

@@ -1,7 +1,7 @@
-m.directive("entityListView", function () {
+m.directive("entityList", function () {
 	return {
 		restrict: "E",
-		templateUrl: "entity-list-view/template.html",
+		templateUrl: "entity-list/template.html",
 		scope: {
 			entity: "@",
 		},
@@ -10,15 +10,15 @@ m.directive("entityListView", function () {
 			"$timeout",
 			"db",
 			function ($scope, $timeout, db) {
-				const refreshStructure = async (entity) => {
-					const structure = await db.getStructure();
-					$scope.structure = structure[entity];
-					const keyFieldName = db.getKeyFieldName($scope.entity);
-					$scope.keyField = keyFieldName;
+				const refreshStructure = (entity) => {
+					return db.getStructure().then((structure) => {
+						$scope.structure = structure[entity];
+						$scope.keyField = db.getKeyFieldName($scope.entity);
+					});
 				};
 
 				const refreshData = (entity) => {
-					db.getData().then((data) => {
+					return db.getData().then((data) => {
 						$scope.allData = data;
 						$scope.data = data[entity];
 					});
@@ -34,7 +34,7 @@ m.directive("entityListView", function () {
 					});
 				});
 
-				$scope.showEditDialog = 0;
+				$scope.showEditDialog = false;
 				$scope.showDeleteDialog = false;
 
 				$scope.delete = (keyValue) => {
@@ -44,12 +44,12 @@ m.directive("entityListView", function () {
 
 				$scope.edit = (keyValue) => {
 					$scope.selectedKey = keyValue;
-					$scope.showEditDialog = 1;
+					$scope.showEditDialog = true;
 				};
 
 				$scope.add = () => {
 					$scope.selectedKey = "";
-					$scope.showEditDialog = 1;
+					$scope.showEditDialog = true;
 				};
 
 				$scope.deleteConfirmButtons = [
@@ -58,6 +58,9 @@ m.directive("entityListView", function () {
 						action: () => {
 							db.deleteRecord($scope.entity, $scope.selectedKey).then(() => {
 								refreshData($scope.entity);
+								$timeout(() => {
+									$scope.$digest();
+								});
 							});
 						},
 					},

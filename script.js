@@ -17,94 +17,88 @@ m.service("error", function () {
 });
 
 m.service("db", function ($http, error) {
-	const errorHandler = (error) => {
-		error.throw("Error communicating with server", error);
-	};
-
 	if (MOCK) {
-		this.getData = () =>
-			new Promise((resolve, reject) => {
-				let [result, cached] = isJson(localStorage.getItem("data"));
-				if (!result) {
-					$http.get("/api/data.json").then(
-						(response) => {
-							localStorage.setItem("data", JSON.stringify(response.data));
-							resolve(response.data);
-						},
-						(error) => {
-							error.throw("Error occurred when trying to retrieve data", error);
-							reject(error);
-						},
-					);
-				} else {
-					resolve(cached);
-				}
-			});
-
-		this.getStructure = () =>
-			new Promise((resolve, reject) => {
-				let [result, cached] = isJson(localStorage.getItem("structure"));
-				if (!result) {
-					$http.get("/api/structure.json").then(
-						(response) => {
-							const structure = response.data;
-							Object.values(structure).forEach((value) => {
-								value.fields.sort((x, y) => x.order - y.order);
-							});
-							localStorage.setItem("structure", JSON.stringify(structure));
-							resolve(structure);
-						},
-						(error) => {
-							error.throw("Error occurred when trying to retrieve data", error);
-							reject(error);
-						},
-					);
-				} else {
-					resolve(cached);
-				}
-			});
+		this.getData = async () => {
+			let [result, cached] = isJson(localStorage.getItem("data"));
+			if (!result) {
+				$http.get("/api/data.json").then(
+					(response) => {
+						localStorage.setItem("data", JSON.stringify(response.data));
+						return response.data;
+					},
+					(e) => {
+						error.throw("Error occurred when trying to retrieve data", e);
+					},
+				);
+			} else {
+				return cached;
+			}
+		};
 
 		let entityKeys;
-		this.getStructure().then((structure) => {
-			entityKeys = {};
-			for (let e of Object.keys(structure)) {
-				entityKeys[e] = structure[e].fields.find((x) => x.key).name;
+
+		this.getStructure = async () => {
+			let [result, cached] = isJson(localStorage.getItem("structure"));
+			if (!result) {
+				$http.get("/api/structure.json").then(
+					(response) => {
+						const structure = response.data;
+						Object.values(structure).forEach((value) => {
+							value.fields.sort((x, y) => x.order - y.order);
+						});
+						localStorage.setItem("structure", JSON.stringify(structure));
+						cached = structure;
+					},
+					(e) => {
+						error.throw("Error occurred when trying to retrieve data", e);
+					},
+				);
 			}
-		});
+
+			this.getStructure().then((structure) => {
+				entityKeys = {};
+				for (let e of Object.keys(structure)) {
+					entityKeys[e] = structure[e].fields.find((x) => x.key).name;
+				}
+			});
+
+			return cached;
+		};
 
 		this.getKeyFieldName = (entity) => {
 			return entityKeys[entity];
 		};
 
-		this.saveRecord = (entity, entityId, data) =>
-			new Promise((resolve, reject) => {
-				const keyFieldName = this.getKeyFieldName(entity);
-				let [result, cached] = isJson(localStorage.getItem("data"));
-				if (result) {
-					if (entityId == "") {
-						if (cached[entity].some((x) => x[keyFieldName] == data[keyFieldName])) {
-							error.throw(`A record with ID=${data[keyFieldName]} already exists.`);
-							reject();
-						}
-					} else {
-						cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
-					}
-					cached[entity].push(data);
-					localStorage.setItem("data", JSON.stringify(cached));
-					resolve();
-				}
-			});
+		this.saveRecord = async (entity, entityId, data) => {
+			const keyFieldName = this.getKeyFieldName(entity);
+			let [result, cached] = isJson(localStorage.getItem("data"));
+			if (!result) {
+				await this.getData().then((data) => {
+					cached = data;
+				});
+			}
 
-		this.deleteRecord = (entity, entityId) =>
-			new Promise((resolve, reject) => {
-				const keyFieldName = this.getKeyFieldName(entity);
-				let [result, cached] = isJson(localStorage.getItem("data"));
-				if (result) {
-					cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
-					localStorage.setItem("data", JSON.stringify(cached));
-					successFn();
+			if (entityId == "") {
+				if (cached[entity].some((x) => x[keyFieldName] == data[keyFieldName])) {
+					error.throw(`A record with ID=${data[keyFieldName]} already exists.`);
 				}
-			});
+			} else {
+				cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+			}
+			cached[entity].push(data);
+			localStorage.setItem("data", JSON.stringify(cached));
+		};
+
+		this.deleteRecord = async (entity, entityId) => {
+			const keyFieldName = this.getKeyFieldName(entity);
+			let [result, cached] = isJson(localStorage.getItem("data"));
+			if (result) {
+				cached[entity] = cached[entity].filter((x) => x[keyFieldName] != entityId);
+				localStorage.setItem("data", JSON.stringify(cached));
+			} else {
+				error.throw(`Unable to delete ${entity} record "${entityId}`);
+			}
+		};
 	}
 });
 
@@ -113,7 +107,6 @@ m.controller("mainCtrl", function ($scope, db, error) {
 		$scope.entities = structure;
 	});
 	$scope.shared = { selectedEntity: "book" };
-	$scope.dialog = false;
 
 	$scope.resetData = () => {
 		localStorage.removeItem("data");

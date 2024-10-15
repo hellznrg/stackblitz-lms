@@ -1,4 +1,4 @@
-.entity-list-view .actions {
+.entity-list .actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5em;
@@ -6,16 +6,16 @@
 	align-items: center;
 }
 
-.entity-list-view img.edit,
-.entity-list-view img.delete,
-.entity-list-view img.add {
+.entity-list img.edit,
+.entity-list img.delete,
+.entity-list img.add {
 	width: 1.5rem;
 }
 
-.entity-list-view .nowrap {
+.entity-list .nowrap {
 	text-wrap: nowrap;
 }
 
-.entity-list-view td {
+.entity-list td {
 	vertical-align: top;
 }

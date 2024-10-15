@@ -42,13 +42,7 @@ h1 {
 }
 
 nav.entities {
-	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	padding: 0.5rem;
-	gap: 0.5rem;
 }
 
 table,

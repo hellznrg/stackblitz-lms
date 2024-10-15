@@ -10,11 +10,12 @@
 		<script src="/script.js"></script>
 		<script src="/filters.js"></script>
 		<script src="dialog/script.js"></script>
-		<script src="entity-list-view/script.js"></script>
+		<script src="entity-list/script.js"></script>
 		<script src="entity-edit/script.js"></script>
 		<script src="link-edit/script.js"></script>
 		<script src="dialog-repeat/script.js"></script>
 	</head>
+
 	<body ng-controller="mainCtrl">
 		<div class="app layout1">
 			<nav class="main">
@@ -32,7 +33,9 @@
 					</table>
 				</nav>
 
-				<entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
+				<main>
+					<entity-list entity="{{shared.selectedEntity}}"></entity-list>
+				</main>
 			</div>
 
 			<lms-dialog
