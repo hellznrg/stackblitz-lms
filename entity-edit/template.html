@@ -1,3 +1,40 @@
-<div class="dialog">
-  <p>this is a dialog box</p>
-</div>
+<link rel="stylesheet" href="entity-edit/styles.css" />
+<lms-dialog-repeat
+	show="show"
+	title="Edit record"
+	transclude
+	buttons="actionButtons"
+	transcluded-scope-0="structure"
+	transcluded-scope-1="entity"
+	transcluded-scope-2="key"
+	transcluded-scope-3="data"
+	class="edit-entity"
+>
+	<table>
+		<tr ng-repeat="field in transcludedScope0.fields">
+			<td>{{ field.description }}</td>
+			<td>
+				<input
+					ng-show="field.type=='string'"
+					type="text"
+					ng-model="transcludedScope3[field.name]"
+					ng-class="{'first-field': $first}"
+				/>
+				<input
+					ng-show="field.type=='date'"
+					type="date"
+					ng-model="transcludedScope3[field.name]"
+					ng-class="{'first-field': $first}"
+				/>
+				<textarea
+					ng-show="field.type=='longText'"
+					ng-model="transcludedScope3[field.name]"
+					ng-class="{'first-field': $first}"
+					rows="{{ field.rows }}"
+				></textarea>
+
+				<link-edit ng-hide="field.type == 'link'" link-from-field="field" value="transcludedScope3"></link-edit>
+			</td>
+		</tr>
+	</table>
+</lms-dialog-repeat>

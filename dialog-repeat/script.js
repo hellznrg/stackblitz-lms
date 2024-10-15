@@ -1,28 +1,38 @@
-m.directive("lmsDialog", function () {
+m.directive("lmsDialogRepeat", function () {
 	return {
 		restrict: "E",
-		templateUrl: "dialog/template.html",
+		templateUrl: "dialog-repeat/template.html",
 		transclude: true,
 		scope: {
 			show: "=",
-			showAttr: "@",
 			title: "@",
 			message: "@",
 			buttons: "=",
 			transclude: "@",
+			transcludedScope0: "=",
+			transcludedScope1: "=",
+			transcludedScope2: "=",
+			transcludedScope3: "=",
+			transcludedScope4: "=",
+			transcludedScope5: "=",
+			transcludedScope6: "=",
+			transcludedScope7: "=",
+			transcludedScope8: "=",
+			transcludedScope9: "=",
 		},
 		controller: [
 			"$scope",
 			function ($scope) {
-				$scope.show = false;
-				$scope.showAttr = "false";
+				$scope.hide = () => {
+					$scope.show = 0;
+				};
+				$scope.show = 0;
 
-				$scope.showResult = () => $scope.show === true || ($scope.showAttr?.toLowerCase() || "") === "true";
+				$scope.showTimes = () => [...Array($scope.show)];
 
 				$scope.choose = (action) => {
 					if (action) action();
-					$scope.show = false;
-					$scope.showAttr = "false";
+					$scope.show = 0;
 				};
 
 				$scope.parseTransclude = () => {

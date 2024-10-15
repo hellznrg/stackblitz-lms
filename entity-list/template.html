@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="entity-list/styles.css" />
+
+<div class="entity-list">
+	<table>
+		<thead>
+			<tr>
+				<td colspan="{{ structure.fields.length + 1 }}">
+					<button ng-click="add()"><img src="/assets/images/table-plus.svg" class="add" /></button>
+				</td>
+			</tr>
+			<tr>
+				<th ng-repeat="field in structure.fields">{{ field.description }}</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="record in data">
+				<td ng-repeat="field in structure.fields">
+					<div ng-show="field.type=='date'" class="nowrap">{{ record[field.name] | format:'localeDate' }}</div>
+					<div ng-show="field.type=='string'">{{ record[field.name] }}</div>
+					<div ng-show="field.type=='longText'">{{ record[field.name] }}</div>
+					<div ng-show="field.type=='link' && field.multiplicity=='many'">
+						<span ng-repeat="link in record[field.name]">
+							<a href="#">{{ macroTransform(field.link, link, field.listDisplay) }}</a>
+							<span ng-hide="$last">, </span>
+						</span>
+					</div>
+				</td>
+				<td>
+					<div class="actions">
+						<button ng-click="edit(record[keyField])">
+							<img src="/assets/images/table-edit.svg" class="edit" />
+						</button>
+						<button ng-click="delete(record[keyField])">
+							<img src="/assets/images/trash-can-outline.svg" class="delete" />
+						</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="{{ structure.fields.length + 1 }}">
+					<button ng-click="add()">
+						<img src="/assets/images/table-plus.svg" class="add" />
+					</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+	<entity-edit
+		show="showEditDialog"
+		entity="{{ entity }}"
+		key="{{ selectedKey }}"
+		save-action="saveAction"
+		structure="structure"
+	></entity-edit>
+
+	<lms-dialog-repeat
+		show="showDeleteDialog"
+		title="Delete record"
+		message='Are you sure you want to delete {{ structure.name }} "{{ selectedKey }}"?'
+		buttons="deleteConfirmButtons"
+	>
+	</lms-dialog-repeat>
+</div>

@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="dialog/styles.css" />
-<div ng-show="showResult()" class="dialog backdrop">
+<div ng-repeat="time in showTimes()" class="dialog backdrop">
 	<div class="content">
 		<div class="header">
 			<h2>{{ title }}</h2>
-			<button ng-click="show=false">&times;</button>
+			<button ng-click="hide()">&times;</button>
 		</div>
 
 		<div class="body">

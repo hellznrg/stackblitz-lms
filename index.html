@@ -1,52 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" ng-app="lms">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <script src="https://code.angularjs.org/1.0.8/angular.min.js"></script>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="/script.js"></script>
-    <script src="entity-list-view/script.js"></script>
-    <script src="entity-edit/script.js"></script>
-  </head>
-  <body ng-controller="mainCtrl">
-    <div class="app layout1">
-      <nav class="main">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/page2.html">Other page</a>
-      </nav>
-      <div class="layout2">
-        <nav class="entities">
-          <table>
-            <tr ng-repeat="(key, value) in entities">
-              <td>
-                <button ng-click="shared.selectedEntity=key">
-                  {{ value.name }}
-                </button>
-              </td>
-            </tr>
-          </table>
-        </nav>
+	<head>
+		<title>Home</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<script src="angular.min.js"></script>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="/utils.js"></script>
+		<script src="/script.js"></script>
+		<script src="/filters.js"></script>
+		<script src="dialog/script.js"></script>
+		<script src="entity-list/script.js"></script>
+		<script src="entity-edit/script.js"></script>
+		<script src="link-edit/script.js"></script>
+		<script src="dialog-repeat/script.js"></script>
+	</head>
 
-        <entity-list-view entity="{{shared.selectedEntity}}"></entity-list-view>
-      </div>
-    </div>
-    <dialog ng-if="dialog==true">
-      <div>hello world</div>
-    </dialog>
-    {{ dialog }}
-    <button ng-click="dialog=!dialog">Show dialog</button>
-    <style>
-      .layout1 {
-        display: flex;
-        flex-direction: column;
-      }
+	<body ng-controller="mainCtrl">
+		<div class="app layout1">
+			<nav class="main">
+				<a href="/" aria-current="page">Home</a>
+				<a href="/page2.html">Other page</a>
+			</nav>
+			<div class="layout2">
+				<nav class="entities">
+					<table>
+						<tr ng-repeat="(key, value) in entities">
+							<td>
+								<button ng-click="shared.selectedEntity=key" style="width: 100%">{{ value.name }}</button>
+							</td>
+						</tr>
+					</table>
+				</nav>
 
-      .layout2 {
-        display: flex;
-        flex-direction: row;
-      }
-    </style>
-  </body>
+				<main>
+					<entity-list entity="{{shared.selectedEntity}}"></entity-list>
+				</main>
+			</div>
+
+			<lms-dialog
+				show="dummy"
+				show-attr="{{ numErrors()>0 }}"
+				title="Error!"
+				message="{{ nextError() }}"
+				transclude
+				buttons="errorButtons"
+			>
+				<pre>{{ nextError() }}</pre>
+			</lms-dialog>
+
+			<div>
+				<h3>Developer tools</h3>
+				<button ng-click="resetStructure()">Reset database structure</button>
+				<button ng-click="resetData()">Reset data</button>
+			</div>
+		</div>
+		<style>
+			.layout1 {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.layout2 {
+				display: flex;
+				flex-direction: row;
+				align-items: flex-start;
+			}
+		</style>
+	</body>
 </html>

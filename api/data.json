@@ -1,30 +1,60 @@
 {
-  "book": [
-    {
-      "id": "B01",
-      "name": "To kill a mockingbird"
-    },
-    {
-      "id": "B02",
-      "name": "Nancy Drew #1"
-    },
-    {
-      "id": "B03",
-      "name": "Mediteranean recipes"
-    }
-  ],
-  "author": [
-    {
-      "id": "A01",
-      "name": "Stephen King"
-    },
-    {
-      "id": "A02",
-      "name": "John Hogan"
-    },
-    {
-      "id": "A03",
-      "name": "Alice"
-    }
-  ]
+	"book": [
+		{
+			"id": "B01",
+			"name": "To kill a mockingbird"
+		},
+		{
+			"id": "B02",
+			"name": "Nancy Drew #1"
+		},
+		{
+			"id": "B03",
+			"name": "Mediteranean recipes"
+		}
+	],
+	"author": [
+		{
+			"id": "A01",
+			"name": "Stephen King"
+		},
+		{
+			"id": "A02",
+			"name": "John Hogan"
+		},
+		{
+			"id": "A03",
+			"name": "Alice"
+		}
+	],
+	"borrower": [
+		{
+			"id": "P01",
+			"name": "Alice Jones",
+			"dateOfBirth": "1999-05-04",
+			"address": "101 Over the rainbow\nQLD 8013\nAustralia",
+			"comments": "Borrows way too many books. A real bookworm."
+		},
+		{
+			"id": "P02",
+			"name": "John Wick",
+			"dateOfBirth": "1989-11-13",
+			"address": "304 George Street\nQueanbeyan\nNSW 5643",
+			"comments": "His kids sometimes damage the books. Give him the books which are already damaged."
+		}
+	],
+	"location": [
+		{
+			"id": "L01",
+			"name": "Gungahlin library",
+			"address": "Gungahlin Place, ACT 2619",
+			"booksAtLocation": ["B03", "B02"]
+		},
+		{
+			"id": "L02",
+			"name": "Wagga Wagga Library",
+			"address": "Wagga Wagga Waterfalls Drive, 145 Somestreet, Somesuburb, Wagga Wagga, NSW 4455",
+			"booksAtLocation": ["B01", "B02"]
+		}
+	]
 }
